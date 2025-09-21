@@ -9,9 +9,17 @@ class User extends BaseController
 {
     public function __construct()
     {
-        $this->Model_user = new Model_user();
-        $this->Model_dep  = new Model_dep();
-        helper('form');
+        $this->Model_user = new Model_user(); 
+        $this->Model_dep  = new Model_dep(); 
+        helper('form'); 
+        // Security check for admin only 
+        if (session()->get('level') != 1) { 
+            session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk halaman ini!');
+            // Redirect non-admins to their respective default page
+            if (session()->get('level') == 2) {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        }
     }
 
     public function index()

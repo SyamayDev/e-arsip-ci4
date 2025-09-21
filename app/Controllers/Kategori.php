@@ -25,20 +25,20 @@ class Kategori extends BaseController
     public function add()
     {
         $data = array(
-            'nama_kategori' => $this->request->getPost(),
+            'nama_kategori' => $this->request->getPost('nama_kategori'),
         );
         $this->Model_kategori->add($data);
         session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan !!!');
         return redirect()->to(base_url('kategori'));
     }
 
-    public function edit($id_kategori)
+    public function update($id_kategori)
     {
         $data = array(
             'id_kategori' => $id_kategori,
             'nama_kategori' => $this->request->getPost('nama_kategori'),
         );
-        $this->Model_kategori->edit( $data);
+        $this->Model_kategori->edit($data);
         session()->setFlashdata('pesan', 'Data Berhasil Diubah !!!');
         return redirect()->to(base_url('kategori'));
     }

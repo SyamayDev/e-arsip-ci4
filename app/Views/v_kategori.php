@@ -35,7 +35,7 @@
                                 <td><?= $no++; ?></td>
                                 <td><?= $value['nama_kategori']; ?></td>
                                 <td>
-                                    <a href="<?= base_url('kategori/edit/' . $value['id_kategori']); ?>" class="btn btn-xs btn-info" data-target="#edit<?= $value['id_kategori']; ?>" data-toggle="modal"><i class="fa fa-edit"></i> Edit</a>
+                                    <button type="button" class="btn btn-xs btn-info" data-target="#edit<?= $value['id_kategori']; ?>" data-toggle="modal"><i class="fa fa-edit"></i> Edit</button>
                                     <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete<?= $value['id_kategori']; ?>"><i class="fa fa-trash-o"></i> Hapus</button>
                                 </td>
                             </tr>
@@ -89,7 +89,7 @@
                     <h4 class="modal-title">Edit Kategori</h4>
                 </div>
                 <div class="modal-body">
-                    <?php echo form_open('kategori/edit/' . $value['id_kategori']) ?>
+                    <?php echo form_open('kategori/update/' . $value['id_kategori']) ?>
                     <div class="form-group">
                         <label>Kategori</label>
                         <input class="form-control" name="nama_kategori" placeholder="Masukan Nama Kategori" value="<?= $value['nama_kategori']; ?>">

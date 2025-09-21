@@ -1,23 +1,15 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <?php
-            // Definisikan link navigasi dalam bentuk array
-            $nav_links = [
-                ['title' => 'Home', 'url' => 'home'],
-                ['title' => 'Kategori', 'url' => 'kategori'],
-                ['title' => 'Departemen', 'url' => 'dep'],
-                ['title' => 'Arsip', 'url' => 'arsip'],
-                ['title' => 'User', 'url' => 'user'],
-            ];
-
-            // Loop melalui array dan buat link navigasi
-            foreach ($nav_links as $link) {
-                // Cek apakah link saat ini adalah halaman yang aktif
-                $active_class = ($title == $link['title']) ? 'active' : '';
-                echo '<li class="' . $active_class . '"><a href="' . base_url($link['url']) . '">' . $link['title'] . '</a></li>';
-            }
-            ?>
+            <?php if (session()->get('level') == 1) { ?>
+              <li class="<?php if($title == 'Home'){echo 'active';} ?>"><a href="<?= base_url('home') ?>">Home</a></li>
+              <li class="<?php if($title == 'Kategori'){echo 'active';} ?>"><a href="<?= base_url('kategori') ?>">Kategori</a></li>
+              <li class="<?php if($title == 'Departemen'){echo 'active';} ?>"><a href="<?= base_url('dep') ?>">Departemen</a></li>
+              <li class="<?php if($title == 'Arsip'){echo 'active';} ?>"><a href="<?= base_url('arsip') ?>">Arsip</a></li>
+              <li class="<?php if($title == 'User'){echo 'active';} ?>"><a href="<?= base_url('user') ?>">User</a></li>
+            <?php } else { ?>
+              <li class="<?php if($title == 'Arsip'){echo 'active';} ?>"><a href="<?= base_url('arsip') ?>">Arsip</a></li>
+            <?php } ?>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -57,7 +49,9 @@
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-
+                  <div class="pull-left">
+                    <a href="<?= base_url('profile') ?>" class="btn btn-default btn-flat">Profile</a>
+                  </div>
                   <div class="pull-right">
                     <a href="<?php echo base_url('auth/logout'); ?>" class="btn btn-default btn-flat">Logout</a>
                   </div>

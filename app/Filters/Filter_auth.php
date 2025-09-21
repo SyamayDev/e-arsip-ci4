@@ -18,8 +18,6 @@ class Filter_auth implements FilterInterface
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        if (session()->get('log') == true) {
-            return redirect()->to(base_url('home'));
-        }
+        // Do something here
     }
 }

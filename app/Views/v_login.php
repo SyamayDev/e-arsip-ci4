@@ -29,13 +29,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition login-page">
-  <div class="login-box">
+<body class="hold-transition login-page" 
+      style="background: url('<?= base_url('background/bg-login-register.jpg') ?>') no-repeat center center fixed; 
+             background-size: cover;">
+
+  <div class="login-box" 
+       style="backdrop-filter: blur(8px) brightness(0.6); 
+              -webkit-backdrop-filter: blur(8px) brightness(0.6);
+              background-color: rgba(0,0,0,0.3); 
+              border-radius: 10px; 
+              padding: 20px;">
     <div class="login-logo">
-      <a href="<?= base_url() ?>"><b>E - Arsip</b></a>
+      <a href="<?= base_url() ?>"><b style="color:white;">E - Arsip</b></a>
     </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
+    <div class="login-box-body" style="background: transparent; color:white;">
       <p class="login-box-msg">Silahkan Login</p>
       <?php
       $errors = session()->getFlashdata('errors');
@@ -65,13 +72,6 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Remember Me
-            </label>
-          </div>
-        </div>
         <!-- /.col -->
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
@@ -79,6 +79,8 @@
         <!-- /.col -->
       </div>
       <?php echo form_close(); ?>
+
+      <br><a href="<?= base_url('auth/register') ?>" class="text-center">Belum Punya Akun? Daftar Disini!</a>
 
     </div>
     <!-- /.login-box-body -->

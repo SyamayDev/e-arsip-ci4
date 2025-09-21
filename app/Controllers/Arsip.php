@@ -16,11 +16,18 @@ class Arsip extends BaseController
 
 	public function index()
 	{
+		$id_user = session()->get('id_user');
+		$level = session()->get('level');
+
+		if ($level == 1) {
+			$arsip = $this->Model_arsip->all_data();
+		} else {
+			$arsip = $this->Model_arsip->all_data_user($id_user);
+		}
+
 		$data = array(
 			'title' => 'Arsip',
-			'arsip' => $this->Model_arsip->all_data(),
-			'kategori' => $this->Model_kategori->all_data(),
-			'recent_arsip' => $this->Model_arsip->all_data(),
+			'arsip' => $arsip,
 			'isi' => 'arsip/v_index'
 		);
 		return view('layout/v_wrapper', $data);
@@ -48,7 +55,7 @@ class Arsip extends BaseController
 			],
 			'deskripsi' => [
 				'label' => 'Deskripsi',
-				'rules' => 'required', // Removed incorrect is_unique rule
+				'rules' => 'required',
 				'errors' => [
 					'required' => '{field} harus diisi.',
 				],
@@ -65,19 +72,18 @@ class Arsip extends BaseController
 				'rules' => 'uploaded[file_arsip]|max_size[file_arsip,10024]|ext_in[file_arsip,pdf]',
 				'errors' => [
 					'uploaded' => '{field} harus diisi.',
-					'max_size' => 'Ukuran {field} terlalu besar. Maksimal 5MB.',
+					'max_size' => 'Ukuran {field} terlalu besar. Maksimal 10MB.',
 					'ext_in' => 'Format {field} wajib .PDF',
 				],
 			],
 		])) {
 			$file_arsip = $this->request->getFile('file_arsip');
-			$nama_file = $file_arsip->getRandomName(); // Fixed variable name
-			// mengambil ukuran file
+			$nama_file = $file_arsip->getRandomName();
 			$ukuranfile = $file_arsip->getSize('kb');
 
 			$data = [
 				'id_kategori' => $this->request->getPost('id_kategori'),
-				'no_arsip' => $this->request->getPost('no_arsip'),
+				'no_arsip' => date('ymd') . '-' . substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 4),
 				'nama_arsip' => $this->request->getPost('nama_arsip'),
 				'deskripsi' => $this->request->getPost('deskripsi'),
 				'tgl_upload' => date('Y-m-d'),
@@ -100,10 +106,16 @@ class Arsip extends BaseController
 
 	public function edit($id_arsip)
 	{
+		$arsip = $this->Model_arsip->detail_data($id_arsip);
+        if (session()->get('level') == 2 && $arsip['id_user'] != session()->get('id_user')) {
+            session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk data ini!');
+            return redirect()->to(base_url('arsip'));
+        }
+
 		$data = array(
 			'title' => 'Edit Arsip',
 			'kategori' => $this->Model_kategori->all_data(),
-			'arsip' => $this->Model_arsip->detail_data($id_arsip),
+			'arsip' => $arsip,
 			'isi' => 'arsip/v_edit'
 		);
 		return view('layout/v_wrapper', $data);
@@ -111,6 +123,12 @@ class Arsip extends BaseController
 
 	public function update($id_arsip)
 	{
+		$arsip = $this->Model_arsip->detail_data($id_arsip);
+        if (session()->get('level') == 2 && $arsip['id_user'] != session()->get('id_user')) {
+            session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk data ini!');
+            return redirect()->to(base_url('arsip'));
+        }
+
 		if ($this->validate([
 			'nama_arsip' => [
 				'label' => 'Nama Arsip',
@@ -121,7 +139,7 @@ class Arsip extends BaseController
 			],
 			'deskripsi' => [
 				'label' => 'Deskripsi',
-				'rules' => 'required', // Removed incorrect is_unique rule
+				'rules' => 'required',
 				'errors' => [
 					'required' => '{field} harus diisi.',
 				],
@@ -137,8 +155,7 @@ class Arsip extends BaseController
 				'label' => 'File Arsip',
 				'rules' => 'max_size[file_arsip,10024]|ext_in[file_arsip,pdf]',
 				'errors' => [
-					'uploaded' => '{field} harus diisi.',
-					'max_size' => 'Ukuran {field} terlalu besar. Maksimal 5MB.',
+					'max_size' => 'Ukuran {field} terlalu besar. Maksimal 10MB.',
 					'ext_in' => 'Format {field} wajib .PDF',
 				],
 			],
@@ -157,12 +174,11 @@ class Arsip extends BaseController
 				];
 				$this->Model_arsip->edit($data);
 			} else {
-				$arsip = $this->Model_arsip->detail_data($id_arsip);
-				if ($arsip['file_arsip'] != "") {
-					unlink('file_arsip/' . $arsip['file_arsip']);
+				$arsip_data = $this->Model_arsip->detail_data($id_arsip);
+				if ($arsip_data['file_arsip'] != "") {
+					unlink('file_arsip/' . $arsip_data['file_arsip']);
 				}
-				$nama_file = $file_arsip->getRandomName(); // Fixed variable name
-				// mengambil ukuran file
+				$nama_file = $file_arsip->getRandomName();
 				$ukuranfile = $file_arsip->getSize('kb');
 
 				$data = [
@@ -192,6 +208,10 @@ class Arsip extends BaseController
 	public function delete($id_arsip)
 	{
 		$arsip = $this->Model_arsip->detail_data($id_arsip);
+        if (session()->get('level') == 2 && $arsip['id_user'] != session()->get('id_user')) {
+            session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk data ini!');
+            return redirect()->to(base_url('arsip'));
+        }
 
 		if ($arsip['file_arsip'] != "") {
 			unlink('file_arsip/' . $arsip['file_arsip']);
@@ -202,19 +222,23 @@ class Arsip extends BaseController
 		);
 
 		$this->Model_arsip->delete_data($data);
-		session()->setFlashdata('pesan', ' Berhasil Berhasil Dihapus !!!');
+		session()->setFlashdata('pesan', 'Data Berhasil Dihapus !!!');
 		return redirect()->to(base_url('arsip'));
 	}
 
 	public function view_pdf($id_arsip)
 	{
+	    $arsip = $this->Model_arsip->detail_data($id_arsip);
+        if (session()->get('level') == 2 && $arsip['id_user'] != session()->get('id_user')) {
+            session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk data ini!');
+            return redirect()->to(base_url('arsip'));
+        }
+
 		$data = array(
 			'title' => 'View Arsip',
-			'arsip' => $this->Model_arsip->detail_data($id_arsip),
+			'arsip' => $arsip,
 			'isi' => 'arsip/v_viewpdf'
 		);
 		return view('layout/v_wrapper', $data);
 	}
-
-	
 }
