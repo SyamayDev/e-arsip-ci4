@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 21, 2025 at 12:46 PM
+-- Generation Time: Sep 21, 2025 at 01:05 PM
 -- Server version: 8.0.30
 -- PHP Version: 7.4.32
 
@@ -120,7 +120,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `email`, `password`, `level`, `foto`, `id_dep`) VALUES
-(1, 'Syahril Maimubdy', 'syahrilmaymubdi2505@gmail.com', 'syahriltamfan25', 1, 'syahriltamfan.jpg', 1),
+(1, 'Syahril Maimubdy', 'syahrilmaymubdi2505@gmail.com', 'syahriltamfan25', 1, '1758459785_199adedeffc670fd0c10.jpg', 1),
 (2, 'Nasyifa Syakila Ikhsan', 'nasyifa123@gmail.com', '12345', 2, '1758455771_abeef0c9b287ba65f069.jpg', 2),
 (6, 'Kindi Mualana Nugraha', 'kindi123@gmail.com', '12345', 2, '1758458592_fa127f018cff5ee4e328.jpg', 2);
 
@@ -172,7 +172,7 @@ ALTER TABLE `tbl_dep`
 -- AUTO_INCREMENT for table `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
-  MODIFY `id_kategori` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kategori` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
