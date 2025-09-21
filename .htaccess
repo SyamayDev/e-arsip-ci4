@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /e-arsip-ci4/
+
+# Jika akses langsung folder /public, biarkan
+RewriteCond %{REQUEST_URI} ^/e-arsip-ci4/public [NC]
+RewriteRule ^ - [L]
+
+# Selain itu, redirect ke folder /public
+RewriteRule ^(.*)$ public/$1 [L]
