@@ -32,7 +32,7 @@ class Home extends BaseController
             'tot_kategori' => $this->Model_home->tot_kategori(),
             'tot_bagian'     => $this->Model_home->tot_bagian(),
             'tot_user'    => $this->Model_home->tot_user(),
-            'recent_arsip' => $this->Model_home->getRecentArsip(5),
+            'recent_arsip' => $this->Model_home->getRecentArsip(6),
             'arsip_bulan' => $this->Model_home->getStatistikPerBulan(),
             'arsip_bagian'   => $this->Model_home->getStatistikPerBagian(),
             'chart_labels' => json_encode($labels),

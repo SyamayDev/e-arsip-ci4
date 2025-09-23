@@ -1127,7 +1127,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function patch(string $from, $to, array $options = null): RouteCollectionInterface
+	public function patch(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('patch', $from, $to, $options);
 
@@ -1145,7 +1145,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function options(string $from, $to, array $options = null): RouteCollectionInterface
+	public function options(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('options', $from, $to, $options);
 
@@ -1163,7 +1163,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function cli(string $from, $to, array $options = null): RouteCollectionInterface
+	public function cli(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('cli', $from, $to, $options);
 
