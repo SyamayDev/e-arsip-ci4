@@ -61,9 +61,9 @@ class Model_home extends Model
     // 🔹 Statistik arsip per departemen
     public function getStatistikPerDepartemen()
     {
-        return $this->select("tbl_dep.nama_dep, COUNT(tbl_arsip.id_arsip) as total")
+        return $this->select("tbl_dep.id_dep, tbl_dep.nama_dep, COUNT(tbl_arsip.id_arsip) as total")
                     ->join("tbl_dep", "tbl_dep.id_dep = tbl_arsip.id_dep", "left")
-                    ->groupBy("tbl_dep.nama_dep")
+                    ->groupBy("tbl_dep.id_dep, tbl_dep.nama_dep")
                     ->findAll();
     }
     public function getAllArsip()

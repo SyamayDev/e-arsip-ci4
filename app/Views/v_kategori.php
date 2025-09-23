@@ -12,6 +12,15 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <?php
+                $errors = session()->getFlashdata('errors');
+                if (!empty($errors)) {
+                    echo '<div class="alert alert-danger alert-dismissible"><h4><i class="icon fa fa-ban"></i> Ada Kesalahan!</h4><ul>';
+                    foreach ($errors as $error) {
+                        echo '<li>' . esc($error) . '</li>';
+                    }
+                    echo '</ul></div>';
+                }
+
                 if (session()->getFlashdata('pesan')) {
                     echo '<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

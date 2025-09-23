@@ -65,4 +65,28 @@ class Model_arsip extends Model
         ->get()
         ->getResultArray();
 }
+
+    public function get_arsip_by_month($month)
+    {
+        return $this->db->table('tbl_arsip')
+            ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left')
+            ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
+            ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')
+            ->where('MONTH(tbl_arsip.tgl_upload)', $month)
+            ->orderBy('id_arsip', 'DESC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function get_arsip_by_department($id_dep)
+    {
+        return $this->db->table('tbl_arsip')
+            ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left')
+            ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
+            ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')
+            ->where('tbl_arsip.id_dep', $id_dep)
+            ->orderBy('id_arsip', 'DESC')
+            ->get()
+            ->getResultArray();
+    }
 }

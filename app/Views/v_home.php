@@ -55,6 +55,7 @@
             <a href="<?= base_url('dep') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
+    
     <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">
@@ -92,7 +93,7 @@
     </div>
 </div>
 
-<!-- Statistik Arsip -->
+<!-- Chart Progress Statistik Arsip -->
 <div class="row">
     <div class="col-md-6">
         <div class="box box-primary">
@@ -100,15 +101,19 @@
                 <h3 class="box-title">📊 Arsip per Bulan</h3>
             </div>
             <div class="box-body">
-                <?php foreach ($arsip_bulan as $ab) :
+                <?php 
+                $nama_bulan = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+                foreach ($arsip_bulan as $ab) :
                     $persen = ($tot_arsip > 0) ? round(($ab['total'] / $tot_arsip) * 100, 1) : 0;
                 ?>
-                    <p><strong><?= $ab['bulan']; ?></strong> (<?= $ab['total']; ?> Arsip)</p>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" style="width: <?= $persen; ?>%">
-                            <?= $persen; ?>%
+                    <a href="<?= base_url('arsip/by_month/' . $ab['bulan']) ?>" style="color: black;">
+                        <p><strong><?= $nama_bulan[$ab['bulan']]; ?></strong> (<?= $ab['total']; ?> Arsip)</p>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" style="width: <?= $persen; ?>%">
+                                <?= $persen; ?>%
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -123,12 +128,14 @@
                 <?php foreach ($arsip_dep as $ad) :
                     $persen = ($tot_arsip > 0) ? round(($ad['total'] / $tot_arsip) * 100, 1) : 0;
                 ?>
-                    <p><strong><?= $ad['nama_dep']; ?></strong> (<?= $ad['total']; ?> Arsip)</p>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?= $persen; ?>%">
-                            <?= $persen; ?>%
+                    <a href="<?= base_url('arsip/by_department/' . $ad['id_dep']) ?>" style="color: black;">
+                        <p><strong><?= $ad['nama_dep']; ?></strong> (<?= $ad['total']; ?> Arsip)</p>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?= $persen; ?>%">
+                                <?= $persen; ?>%
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>

@@ -44,6 +44,20 @@
                     <label>Deskripsi</label>
                     <textarea name="deskripsi" class="form-control" rows="4"></textarea>
                 </div> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tanggal Mulai Aktif</label>
+                            <input type="date" name="tgl_mulai_aktif" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tanggal Selesai Aktif</label>
+                            <input type="date" name="tgl_selesai_aktif" class="form-control">
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>File Arsip</label>
                     <input type="file" name="file_arsip" class="form-control"> <!-- Fixed name attribute -->

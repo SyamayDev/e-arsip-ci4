@@ -24,23 +24,49 @@ class Kategori extends BaseController
 
     public function add()
     {
-        $data = array(
-            'nama_kategori' => $this->request->getPost('nama_kategori'),
-        );
-        $this->Model_kategori->add($data);
-        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan !!!');
-        return redirect()->to(base_url('kategori'));
+        if ($this->validate([
+            'nama_kategori' => [
+                'label' => 'Nama Kategori',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi.',
+                ],
+            ],
+        ])) {
+            $data = [
+                'nama_kategori' => $this->request->getPost('nama_kategori'),
+            ];
+            $this->Model_kategori->add($data);
+            session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan !!!');
+            return redirect()->to(base_url('kategori'));
+        } else {
+            session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
+            return redirect()->to(base_url('kategori'));
+        }
     }
 
     public function update($id_kategori)
     {
-        $data = array(
-            'id_kategori' => $id_kategori,
-            'nama_kategori' => $this->request->getPost('nama_kategori'),
-        );
-        $this->Model_kategori->edit($data);
-        session()->setFlashdata('pesan', 'Data Berhasil Diubah !!!');
-        return redirect()->to(base_url('kategori'));
+        if ($this->validate([
+            'nama_kategori' => [
+                'label' => 'Nama Kategori',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib Diisi.',
+                ],
+            ],
+        ])) {
+            $data = [
+                'id_kategori' => $id_kategori,
+                'nama_kategori' => $this->request->getPost('nama_kategori'),
+            ];
+            $this->Model_kategori->edit($data);
+            session()->setFlashdata('pesan', 'Data Berhasil Diubah !!!');
+            return redirect()->to(base_url('kategori'));
+        } else {
+            session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
+            return redirect()->to(base_url('kategori'));
+        }
     }
     public function delete($id_kategori)
     {

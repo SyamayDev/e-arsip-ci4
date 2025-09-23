@@ -36,6 +36,10 @@ $routes->post('save_register', 'Auth::save_register');
 $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update');
 
+// Routes for new features
+$routes->get('arsip/by_month/(:num)', 'Arsip::by_month/$1');
+$routes->get('arsip/by_department/(:num)', 'Arsip::by_department/$1');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

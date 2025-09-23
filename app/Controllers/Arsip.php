@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Model_arsip;
 use App\Models\Model_kategori;
+use App\Models\Model_dep;
 
 class Arsip extends BaseController
 {
@@ -11,6 +12,7 @@ class Arsip extends BaseController
 	{
 		$this->Model_kategori = new Model_kategori();
 		$this->Model_arsip = new Model_arsip();
+		$this->Model_dep = new Model_dep();
 		helper('form');
 	}
 
@@ -32,6 +34,35 @@ class Arsip extends BaseController
 		);
 		return view('layout/v_wrapper', $data);
 	}
+
+    public function by_month($month)
+    {
+        $nama_bulan = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus', 
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        $data = [
+            'title' => 'Arsip Bulan ' . ($nama_bulan[$month] ?? 'Tidak Valid'),
+            'arsip' => $this->Model_arsip->get_arsip_by_month($month),
+            'isi'   => 'arsip/v_arsip_grid'
+        ];
+        return view('layout/v_wrapper', $data);
+    }
+
+    public function by_department($id_dep)
+    {
+        $dep = $this->Model_dep->detail_data($id_dep);
+        $nama_dep = $dep ? $dep['nama_dep'] : 'Tidak Ditemukan';
+
+        $data = [
+            'title' => 'Arsip Departemen ' . $nama_dep,
+            'arsip' => $this->Model_arsip->get_arsip_by_department($id_dep),
+            'isi'   => 'arsip/v_arsip_grid'
+        ];
+        return view('layout/v_wrapper', $data);
+    }
 
 	public function add(): string
 	{
@@ -92,6 +123,8 @@ class Arsip extends BaseController
 				'id_user' => session()->get('id_user'),
 				'file_arsip' => $nama_file,
 				'ukuran_file' => $ukuranfile,
+                'tgl_mulai_aktif' => $this->request->getPost('tgl_mulai_aktif'),
+                'tgl_selesai_aktif' => $this->request->getPost('tgl_selesai_aktif'),
 			];
 
 			$file_arsip->move('file_arsip', $nama_file);
@@ -122,88 +155,78 @@ class Arsip extends BaseController
 	}
 
 	public function update($id_arsip)
-	{
-		$arsip = $this->Model_arsip->detail_data($id_arsip);
-        if (session()->get('level') == 2 && $arsip['id_user'] != session()->get('id_user')) {
-            session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk data ini!');
-            return redirect()->to(base_url('arsip'));
+{
+    $arsip = $this->Model_arsip->detail_data($id_arsip);
+    if (session()->get('level') == 2 && $arsip['id_user'] != session()->get('id_user')) {
+        session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk data ini!');
+        return redirect()->to(base_url('arsip'));
+    }
+
+    if ($this->validate([
+        'nama_arsip' => [
+            'label' => 'Nama Arsip',
+            'rules' => 'required',
+            'errors' => ['required' => '{field} harus diisi.'],
+        ],
+        'deskripsi' => [
+            'label' => 'Deskripsi',
+            'rules' => 'required',
+            'errors' => ['required' => '{field} harus diisi.'],
+        ],
+        'id_kategori' => [
+            'label' => 'Kategori',
+            'rules' => 'required',
+            'errors' => ['required' => '{field} harus diisi.'],
+        ],
+        'file_arsip' => [
+            'label' => 'File Arsip',
+            'rules' => 'max_size[file_arsip,10024]|ext_in[file_arsip,pdf]',
+            'errors' => [
+                'max_size' => 'Ukuran {field} terlalu besar. Maksimal 10MB.',
+                'ext_in' => 'Format {field} wajib .PDF',
+            ],
+        ],
+    ])) {
+        $file_arsip = $this->request->getFile('file_arsip');
+
+        // data yang akan diupdate — TIDAK mengubah id_dep dan id_user
+        $data = [
+            'id_arsip'    => $id_arsip,
+            'id_kategori' => $this->request->getPost('id_kategori'),
+            'no_arsip'    => $this->request->getPost('no_arsip'),
+            'nama_arsip'  => $this->request->getPost('nama_arsip'),
+            'deskripsi'   => $this->request->getPost('deskripsi'),
+            'tgl_update'  => date('Y-m-d'),
+            // <--- jangan masukkan 'id_dep' dan 'id_user' di sini
+        ];
+
+        // jika admin boleh ubah masa aktif
+        if (session()->get('level') == 1) {
+            $data['tgl_mulai_aktif'] = $this->request->getPost('tgl_mulai_aktif');
+            $data['tgl_selesai_aktif'] = $this->request->getPost('tgl_selesai_aktif');
         }
 
-		if ($this->validate([
-			'nama_arsip' => [
-				'label' => 'Nama Arsip',
-				'rules' => 'required',
-				'errors' => [
-					'required' => '{field} harus diisi.',
-				],
-			],
-			'deskripsi' => [
-				'label' => 'Deskripsi',
-				'rules' => 'required',
-				'errors' => [
-					'required' => '{field} harus diisi.',
-				],
-			],
-			'id_kategori' => [
-				'label' => 'Kategori',
-				'rules' => 'required',
-				'errors' => [
-					'required' => '{field} harus diisi.',
-				],
-			],
-			'file_arsip' => [
-				'label' => 'File Arsip',
-				'rules' => 'max_size[file_arsip,10024]|ext_in[file_arsip,pdf]',
-				'errors' => [
-					'max_size' => 'Ukuran {field} terlalu besar. Maksimal 10MB.',
-					'ext_in' => 'Format {field} wajib .PDF',
-				],
-			],
-		])) {
-			$file_arsip = $this->request->getFile('file_arsip');
-			if ($file_arsip->getError() == 4) {
-				$data = [
-					'id_arsip' => $id_arsip,
-					'id_kategori' => $this->request->getPost('id_kategori'),
-					'no_arsip' => $this->request->getPost('no_arsip'),
-					'nama_arsip' => $this->request->getPost('nama_arsip'),
-					'deskripsi' => $this->request->getPost('deskripsi'),
-					'tgl_update' => date('Y-m-d'),
-					'id_dep' => session()->get('id_dep'),
-					'id_user' => session()->get('id_user'),
-				];
-				$this->Model_arsip->edit($data);
-			} else {
-				$arsip_data = $this->Model_arsip->detail_data($id_arsip);
-				if ($arsip_data['file_arsip'] != "") {
-					unlink('file_arsip/' . $arsip_data['file_arsip']);
-				}
-				$nama_file = $file_arsip->getRandomName();
-				$ukuranfile = $file_arsip->getSize('kb');
+        // jika ada file baru, replace file lama
+        if ($file_arsip->getError() != 4) {
+            // pastikan file lama ada sebelum unlink
+            if (!empty($arsip['file_arsip']) && is_file('file_arsip/' . $arsip['file_arsip'])) {
+                unlink('file_arsip/' . $arsip['file_arsip']);
+            }
+            $nama_file = $file_arsip->getRandomName();
+            $ukuranfile = $file_arsip->getSize('kb');
+            $data['file_arsip'] = $nama_file;
+            $data['ukuran_file'] = $ukuranfile;
+            $file_arsip->move('file_arsip', $nama_file);
+        }
 
-				$data = [
-					'id_arsip' => $id_arsip,
-					'id_kategori' => $this->request->getPost('id_kategori'),
-					'no_arsip' => $this->request->getPost('no_arsip'),
-					'nama_arsip' => $this->request->getPost('nama_arsip'),
-					'deskripsi' => $this->request->getPost('deskripsi'),
-					'tgl_update' => date('Y-m-d'),
-					'id_dep' => session()->get('id_dep'),
-					'id_user' => session()->get('id_user'),
-					'file_arsip' => $nama_file,
-					'ukuran_file' => $ukuranfile,
-				];
-
-				$file_arsip->move('file_arsip', $nama_file);
-				$this->Model_arsip->edit($data);
-			}
-			session()->setFlashdata('pesan', 'Data Berhasil Diubah !!!');
-			return redirect()->to(base_url('arsip'));
-		} else {
-			session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
-			return redirect()->to(base_url('arsip/edit/' . $id_arsip));
-		}
-	}
+        $this->Model_arsip->edit($data);
+        session()->setFlashdata('pesan', 'Data Berhasil Diubah !!!');
+        return redirect()->to(base_url('arsip'));
+    } else {
+        session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
+        return redirect()->to(base_url('arsip/edit/' . $id_arsip));
+    }
+}
 
 	public function delete($id_arsip)
 	{
@@ -229,6 +252,16 @@ class Arsip extends BaseController
 	public function view_pdf($id_arsip)
 	{
 	    $arsip = $this->Model_arsip->detail_data($id_arsip);
+
+        // Cek Masa Aktif untuk User
+        if (session()->get('level') == 2) {
+            $today = date('Y-m-d');
+            if ($arsip['tgl_selesai_aktif'] != null && $arsip['tgl_selesai_aktif'] < $today) {
+                session()->setFlashdata('pesan', 'Arsip ini sudah melewati masa aktifnya dan tidak bisa diakses.');
+                return redirect()->to(base_url('arsip'));
+            }
+        }
+
         if (session()->get('level') == 2 && $arsip['id_user'] != session()->get('id_user')) {
             session()->setFlashdata('pesan', 'Anda tidak memiliki hak akses untuk data ini!');
             return redirect()->to(base_url('arsip'));

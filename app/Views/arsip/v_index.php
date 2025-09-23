@@ -29,6 +29,7 @@
                             <th>Kategori</th>
                             <th>Upload</th>
                             <th>Update</th>
+                            <th>Masa Aktif</th>
                             <th>User</th>
                             <th>Departemen</th>
                             <th>File</th>
@@ -37,32 +38,61 @@
                     </thead>
                     <tbody>
                         <?php $no = 1;
-                        foreach ($arsip as $key => $value) { ?>
-                            <tr>
+                        foreach ($arsip as $key => $value) {
+                            $today = date('Y-m-d');
+                            $is_expired = ($value['tgl_selesai_aktif'] != null && $value['tgl_selesai_aktif'] < $today);
+                            $is_active = ($value['tgl_mulai_aktif'] != null && $value['tgl_selesai_aktif'] != null
+                                && $value['tgl_mulai_aktif'] <= $today && $value['tgl_selesai_aktif'] >= $today);
+
+                            $row_class = '';
+                            if ($is_expired) {
+                                $row_class = 'danger'; // merah expired
+                            } elseif ($is_active) {
+                                $row_class = 'success'; // hijau aktif
+                            }
+                        ?>
+                            <tr class="<?= $row_class ?>">
                                 <td><?= $no++; ?></td>
                                 <td><?= $value['no_arsip']; ?></td>
                                 <td><?= $value['nama_arsip']; ?></td>
                                 <td><?= $value['nama_kategori']; ?></td>
                                 <td><?= $value['tgl_upload']; ?></td>
                                 <td><?= $value['tgl_update']; ?></td>
+                                <td>
+                                    <?= $value['tgl_mulai_aktif']; ?> - <?= $value['tgl_selesai_aktif']; ?>
+                                    <?php if ($is_expired): ?>
+                                        <span class="label label-danger">Expired</span>
+                                    <?php elseif ($is_active): ?>
+                                        <span class="label label-success">Aktif</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= $value['nama_user']; ?></td>
                                 <td><?= $value['nama_dep']; ?></td>
-                                </td>
                                 <td>
-                                    <a href="<?= base_url('arsip/view_pdf/' . $value['id_arsip']); ?>" class="btn btn-sm btn-danger">
-                                        <i class="fa fa-file-pdf-o fa-2x"></i>
-                                    </a><br>
+                                    <?php if ($is_expired && session()->get('level') == 2): ?>
+                                        <a class="btn btn-sm btn-default disabled" title="Arsip telah melewati masa aktif">
+                                            <i class="fa fa-file-pdf-o fa-2x"></i>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="<?= base_url('arsip/view_pdf/' . $value['id_arsip']); ?>" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-file-pdf-o fa-2x"></i>
+                                        </a>
+                                    <?php endif; ?><br>
                                     <?= number_format($value['ukuran_file'] / 1024, 2); ?> KB
                                 </td>
                                 <td class="text-center">
-                                    <a href="<?= base_url('arsip/edit/' . $value['id_arsip']); ?>" class="btn btn-xs btn-info">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete<?= $value['id_arsip']; ?>">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
+                                    <?php if ($is_expired && session()->get('level') == 2): ?>
+                                        <a class="btn btn-xs btn-info disabled"><i class="fa fa-edit"></i></a>
+                                        <button type="button" class="btn btn-xs btn-danger disabled"><i class="fa fa-trash-o"></i></button>
+                                    <?php else: ?>
+                                        <a href="<?= base_url('arsip/edit/' . $value['id_arsip']); ?>" class="btn btn-xs btn-info">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete<?= $value['id_arsip']; ?>">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    <?php endif; ?>
                                 </td>
-
                             </tr>
 
                             <!-- Modal Hapus -->
@@ -82,12 +112,11 @@
                                             <a href="<?= base_url('arsip/delete/' . $value['id_arsip']); ?>" class="btn btn-danger">Hapus</a>
                                         </div>
                                     </div>
-                                    <!-- /.modal-content -->
                                 </div>
-                                <!-- /.modal-dialog -->
                             </div>
                             <!-- End Modal Hapus -->
 
+                            <!-- Modal Foto -->
                             <div class="modal fade" id="fotoModal<?= $value['id_arsip']; ?>" tabindex="-1" role="dialog">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content bg-transparent border-0 shadow-none">
@@ -101,9 +130,9 @@
                                 </div>
                             </div>
                             <!-- End Modal Foto -->
-
                         <?php } ?>
                     </tbody>
+
                 </table>
             </div>
             <!-- /.box-body -->

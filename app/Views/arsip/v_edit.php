@@ -41,6 +41,20 @@
                     <label>Deskripsi</label>
                     <textarea name="deskripsi" class="form-control" rows="4"><?= $arsip['deskripsi'] ?? '' ?></textarea>
                 </div> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tanggal Mulai Aktif</label>
+                            <input type="date" name="tgl_mulai_aktif" value="<?= $arsip['tgl_mulai_aktif']; ?>" class="form-control" <?= (session()->get('level') == 2) ? 'readonly' : ''; ?>>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tanggal Selesai Aktif</label>
+                            <input type="date" name="tgl_selesai_aktif" value="<?= $arsip['tgl_selesai_aktif']; ?>" class="form-control" <?= (session()->get('level') == 2) ? 'readonly' : ''; ?>>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>Ganti File</label>
                     <input type="file" name="file_arsip" class="form-control">
