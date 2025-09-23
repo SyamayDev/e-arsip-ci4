@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
   <meta charset="utf-8">
@@ -64,11 +64,13 @@
       ?>
       <?php echo form_open('auth/login') ?>
       <div class="form-group has-feedback">
-        <input type="email" name="email" class="form-control" placeholder="Email">
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="password" class="form-control" placeholder="Password">
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -80,7 +82,7 @@
       </div>
       <?php echo form_close(); ?>
 
-      <br><a href="<?= base_url('auth/register') ?>" class="text-center">Belum Punya Akun? Daftar Disini!</a>
+      <br><a href="<?= base_url('auth/register') ?>" class="text-center">Belum punya akun? Daftar sekarang</a>
 
     </div>
     <!-- /.login-box-body -->
@@ -88,11 +90,11 @@
   <!-- /.login-box -->
 
   <!-- jQuery 3 -->
-  <script src="<?= base_url() ?>/template/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="<?= base_url() ?>/template/bower_components/jquery/dist/jquery.min.js" defer></script>
   <!-- Bootstrap 3.3.7 -->
-  <script src="<?= base_url() ?>/template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="<?= base_url() ?>/template/bower_components/bootstrap/dist/js/bootstrap.min.js" defer></script>
   <!-- iCheck -->
-  <script src="<?= base_url() ?>/template/plugins/iCheck/icheck.min.js"></script>
+  <script src="<?= base_url() ?>/template/plugins/iCheck/icheck.min.js" defer></script>
   <script>
     $(function() {
       $('input').iCheck({

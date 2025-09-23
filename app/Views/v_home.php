@@ -8,9 +8,9 @@
                 <p>File Arsip</p>
             </div>
             <div class="icon">
-                <i class="fa fa-file-pdf-o"></i>
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
             </div>
-            <a href="<?= base_url('arsip') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('arsip') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
         </div>
     </div>
 
@@ -22,9 +22,9 @@
                 <p>Kategori</p>
             </div>
             <div class="icon">
-                <i class="fa fa-folder-open-o"></i>
+                <i class="fa fa-folder-open-o" aria-hidden="true"></i>
             </div>
-            <a href="<?= base_url('kategori') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('kategori') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
         </div>
     </div>
 
@@ -36,9 +36,9 @@
                 <p>User</p>
             </div>
             <div class="icon">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-users" aria-hidden="true"></i>
             </div>
-            <a href="<?= base_url('user') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('user') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
         </div>
     </div>
 
@@ -50,9 +50,9 @@
                 <p>Departemen</p>
             </div>
             <div class="icon">
-                <i class="fa fa-building-o"></i>
+                <i class="fa fa-building-o" aria-hidden="true"></i>
             </div>
-            <a href="<?= base_url('dep') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('dep') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
         </div>
     </div>
     
@@ -70,7 +70,7 @@
                                     <a href="<?= base_url('arsip/view_pdf/' . $ra['id_arsip']) ?>" class="text-decoration-none">
                                         <!-- Pratinjau Sederhana (Placeholder) -->
                                         <div class="file-preview" style="height: 100px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 10px;">
-                                            <i class="fa fa-file-pdf-o fa-3x" style="color: #d81b60;"></i>
+                                            <i class="fa fa-file-pdf-o fa-3x" style="color: #d81b60;" aria-hidden="true"></i>
                                             <p class="text-muted small mt-1"><?= substr($ra['nama_arsip'], 0, 10) . (strlen($ra['nama_arsip']) > 10 ? '...' : '') ?></p>
                                         </div>
                                         <!-- Nama File -->
@@ -106,10 +106,10 @@
                 foreach ($arsip_bulan as $ab) :
                     $persen = ($tot_arsip > 0) ? round(($ab['total'] / $tot_arsip) * 100, 1) : 0;
                 ?>
-                    <a href="<?= base_url('arsip/by_month/' . $ab['bulan']) ?>" style="color: black;">
+                    <a href="<?= base_url('arsip/by_month/' . $ab['bulan']) ?>" style="color: black;" aria-label="Lihat arsip untuk bulan <?= $nama_bulan[$ab['bulan']]; ?>">
                         <p><strong><?= $nama_bulan[$ab['bulan']]; ?></strong> (<?= $ab['total']; ?> Arsip)</p>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-info" role="progressbar" style="width: <?= $persen; ?>%">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?= $persen; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $persen; ?>%">
                                 <?= $persen; ?>%
                             </div>
                         </div>
@@ -128,10 +128,10 @@
                 <?php foreach ($arsip_dep as $ad) :
                     $persen = ($tot_arsip > 0) ? round(($ad['total'] / $tot_arsip) * 100, 1) : 0;
                 ?>
-                    <a href="<?= base_url('arsip/by_department/' . $ad['id_dep']) ?>" style="color: black;">
+                    <a href="<?= base_url('arsip/by_department/' . $ad['id_dep']) ?>" style="color: black;" aria-label="Lihat arsip untuk departemen <?= $ad['nama_dep']; ?>">
                         <p><strong><?= $ad['nama_dep']; ?></strong> (<?= $ad['total']; ?> Arsip)</p>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: <?= $persen; ?>%">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $persen; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $persen; ?>%">
                                 <?= $persen; ?>%
                             </div>
                         </div>

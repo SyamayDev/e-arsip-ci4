@@ -71,38 +71,38 @@
                                 <td>
                                     <?php if ($is_expired && session()->get('level') == 2): ?>
                                         <a class="btn btn-sm btn-default disabled" title="Arsip telah melewati masa aktif">
-                                            <i class="fa fa-file-pdf-o fa-2x"></i>
+                                            <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                                         </a>
                                     <?php else: ?>
-                                        <a href="<?= base_url('arsip/view_pdf/' . $value['id_arsip']); ?>" class="btn btn-sm btn-danger">
-                                            <i class="fa fa-file-pdf-o fa-2x"></i>
+                                        <a href="<?= base_url('arsip/view_pdf/' . $value['id_arsip']); ?>" class="btn btn-sm btn-danger" aria-label="Lihat PDF <?= $value['nama_arsip']; ?>">
+                                            <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
                                         </a>
                                     <?php endif; ?><br>
                                     <?= number_format($value['ukuran_file'] / 1024, 2); ?> KB
                                 </td>
                                 <td class="text-center">
                                     <?php if ($is_expired && session()->get('level') == 2): ?>
-                                        <a class="btn btn-xs btn-info disabled"><i class="fa fa-edit"></i></a>
-                                        <button type="button" class="btn btn-xs btn-danger disabled"><i class="fa fa-trash-o"></i></button>
+                                        <a class="btn btn-xs btn-info disabled"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                        <button type="button" class="btn btn-xs btn-danger disabled"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                     <?php else: ?>
-                                        <a href="<?= base_url('arsip/edit/' . $value['id_arsip']); ?>" class="btn btn-xs btn-info">
-                                            <i class="fa fa-edit"></i>
+                                        <a href="<?= base_url('arsip/edit/' . $value['id_arsip']); ?>" class="btn btn-xs btn-info" aria-label="Edit <?= $value['nama_arsip']; ?>">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete<?= $value['id_arsip']; ?>">
-                                            <i class="fa fa-trash-o"></i>
+                                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete<?= $value['id_arsip']; ?>" aria-label="Hapus <?= $value['nama_arsip']; ?>">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
                                         </button>
                                     <?php endif; ?>
                                 </td>
                             </tr>
 
                             <!-- Modal Hapus -->
-                            <div class="modal fade" id="delete<?= $value['id_arsip']; ?>">
-                                <div class="modal-dialog">
+                            <div class="modal fade" id="delete<?= $value['id_arsip']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?= $value['id_arsip']; ?>">
+                                <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-danger">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Konfirmasi Hapus</h4>
+                                            <h4 class="modal-title" id="deleteModalLabel<?= $value['id_arsip']; ?>"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Konfirmasi Hapus</h4>
                                         </div>
                                         <div class="modal-body">
                                             <p>Apakah Anda yakin ingin menghapus arsip <strong><?= $value['nama_arsip']; ?></strong>?</p>
@@ -122,9 +122,9 @@
                                     <div class="modal-content bg-transparent border-0 shadow-none">
                                         <div class="modal-body p-0 text-center">
                                             <img src="<?= base_url('foto/' . $value['foto']); ?>"
-                                                class="img-fluid rounded"
-                                                alt="Foto Profil"
-                                                style="max-width:90%; height:auto;">
+                                                class="img-fluid rounded img-responsive-modal"
+                                                alt="Foto profil <?= $value['nama_user']; ?>"
+                                                loading="lazy">
                                         </div>
                                     </div>
                                 </div>
