@@ -142,3 +142,9 @@
     </div>
     <!-- end modal hapus -->
 <?php } ?>
+
+<script>
+    $(function () {
+        $('#example1').DataTable()
+    })
+</script>

@@ -46,13 +46,13 @@
         <!-- small box -->
         <div class="small-box bg-yellow">
             <div class="inner">
-                <h3><?= $tot_dep; ?></h3>
-                <p>Departemen</p>
+                <h3><?= $tot_bagian; ?></h3>
+                <p>Bagian</p>
             </div>
             <div class="icon">
                 <i class="fa fa-building-o" aria-hidden="true"></i>
             </div>
-            <a href="<?= base_url('dep') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+            <a href="<?= base_url('bagian') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
         </div>
     </div>
     
@@ -122,14 +122,14 @@
     <div class="col-md-6">
         <div class="box box-warning">
             <div class="box-header with-border">
-                <h3 class="box-title">🏢 Arsip per Departemen</h3>
+                <h3 class="box-title">🏢 Arsip per Bagian</h3>
             </div>
             <div class="box-body">
-                <?php foreach ($arsip_dep as $ad) :
+                <?php foreach ($arsip_bagian as $ad) :
                     $persen = ($tot_arsip > 0) ? round(($ad['total'] / $tot_arsip) * 100, 1) : 0;
                 ?>
-                    <a href="<?= base_url('arsip/by_department/' . $ad['id_dep']) ?>" style="color: black;" aria-label="Lihat arsip untuk departemen <?= $ad['nama_dep']; ?>">
-                        <p><strong><?= $ad['nama_dep']; ?></strong> (<?= $ad['total']; ?> Arsip)</p>
+                    <a href="<?= base_url('arsip/by_bagian/' . $ad['id_bagian']) ?>" style="color: black;" aria-label="Lihat arsip untuk bagian <?= $ad['nama_bagian']; ?>">
+                        <p><strong><?= $ad['nama_bagian']; ?></strong> (<?= $ad['total']; ?> Arsip)</p>
                         <div class="progress">
                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $persen; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $persen; ?>%">
                                 <?= $persen; ?>%

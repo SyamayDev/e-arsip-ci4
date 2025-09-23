@@ -31,7 +31,7 @@
                             <th>Update</th>
                             <th>Masa Aktif</th>
                             <th>User</th>
-                            <th>Departemen</th>
+                            <th>Bagian</th>
                             <th>File</th>
                             <th width="100px">Aksi</th>
                         </tr>
@@ -67,7 +67,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td><?= $value['nama_user']; ?></td>
-                                <td><?= $value['nama_dep']; ?></td>
+                                <td><?= $value['nama_bagian']; ?></td>
                                 <td>
                                     <?php if ($is_expired && session()->get('level') == 2): ?>
                                         <a class="btn btn-sm btn-default disabled" title="Arsip telah melewati masa aktif">
@@ -140,3 +140,9 @@
         <!-- /.box -->
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('#example1').DataTable()
+    })
+</script>

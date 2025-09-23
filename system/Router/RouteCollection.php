@@ -627,7 +627,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return RouteCollectionInterface
 	 */
-	public function add(string $from, $to, array $options = null): RouteCollectionInterface
+	public function add(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('*', $from, $to, $options);
 
@@ -1037,7 +1037,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function get(string $from, $to, array $options = null): RouteCollectionInterface
+	public function get(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('get', $from, $to, $options);
 
@@ -1055,7 +1055,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function post(string $from, $to, array $options = null): RouteCollectionInterface
+	public function post(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('post', $from, $to, $options);
 
@@ -1073,7 +1073,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function put(string $from, $to, array $options = null): RouteCollectionInterface
+	public function put(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('put', $from, $to, $options);
 
@@ -1091,7 +1091,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function delete(string $from, $to, array $options = null): RouteCollectionInterface
+	public function delete(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('delete', $from, $to, $options);
 
@@ -1109,7 +1109,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function head(string $from, $to, array $options = null): RouteCollectionInterface
+	public function head(string $from, $to, ?array $options = null): RouteCollectionInterface
 	{
 		$this->create('head', $from, $to, $options);
 
@@ -1373,7 +1373,7 @@ class RouteCollection implements RouteCollectionInterface
 	 * @param string|array $to
 	 * @param array|null   $options
 	 */
-	protected function create(string $verb, string $from, $to, array $options = null)
+	protected function create(string $verb, string $from, $to, ?array $options = null)
 	{
 		$overwrite = false;
 		$prefix    = is_null($this->group) ? '' : $this->group . '/';

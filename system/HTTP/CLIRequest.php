@@ -225,7 +225,7 @@ class CLIRequest extends Request
 			// then add it to our segments.
 			if (! $options_found && strpos($argv[$i], '-') !== 0)
 			{
-				$this->segments[] = filter_var($argv[$i], FILTER_SANITIZE_STRING);
+				$this->segments[] = filter_var($argv[$i], FILTER_UNSAFE_RAW);
 				continue;
 			}
 
@@ -236,13 +236,13 @@ class CLIRequest extends Request
 				continue;
 			}
 
-			$arg   = filter_var(str_replace('-', '', $argv[$i]), FILTER_SANITIZE_STRING);
+			$arg   = filter_var(str_replace('-', '', $argv[$i]), FILTER_UNSAFE_RAW);
 			$value = null;
 
 			// If the next item starts with a dash it's a value
 			if (isset($argv[$i + 1]) && strpos($argv[$i + 1], '-') !== 0)
 			{
-				$value = filter_var($argv[$i + 1], FILTER_SANITIZE_STRING);
+				$value = filter_var($argv[$i + 1], FILTER_UNSAFE_RAW);
 				$i ++;
 			}
 

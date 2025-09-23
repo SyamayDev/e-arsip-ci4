@@ -3,14 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\Model_user;
-use App\Models\Model_dep;
+use App\Models\Model_bagian;
 
 class User extends BaseController
 {
     public function __construct()
     {
         $this->Model_user = new Model_user();
-        $this->Model_dep  = new Model_dep();
+        $this->Model_bagian  = new Model_bagian();
         helper('form');
     }
 
@@ -28,7 +28,7 @@ class User extends BaseController
     {
         $data = [
             'title' => 'Add User',
-            'dep'   => $this->Model_dep->all_data(),
+            'bagian'   => $this->Model_bagian->all_data(),
             'isi'   => 'user/v_add',
         ];
         return view('layout/v_wrapper', $data);
@@ -67,8 +67,8 @@ class User extends BaseController
                     'required' => '{field} harus diisi.',
                 ],
             ],
-            'id_dep' => [
-                'label' => 'Departemen',
+            'id_bagian' => [
+                'label' => 'bagianartemen',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi.',
@@ -92,7 +92,7 @@ class User extends BaseController
                 'email'     => $this->request->getPost('email'),
                 'password'  => $this->request->getPost('password'), // tanpa hash
                 'level'     => $this->request->getPost('level'),
-                'id_dep'    => $this->request->getPost('id_dep'),
+                'id_bagian'    => $this->request->getPost('id_bagian'),
                 'foto'      => $nama_file,
             ];
 
@@ -111,7 +111,7 @@ class User extends BaseController
         $data = [
             'title' => 'Edit User',
             'user'  => $this->Model_user->detail_data($id_user),
-            'dep'   => $this->Model_dep->all_data(),
+            'bagian'   => $this->Model_bagian->all_data(),
             'isi'   => 'user/v_edit',
         ];
         return view('layout/v_wrapper', $data);
@@ -143,8 +143,8 @@ class User extends BaseController
                     'required' => '{field} harus diisi.',
                 ],
             ],
-            'id_dep' => [
-                'label' => 'Departemen',
+            'id_bagian' => [
+                'label' => 'bagianartemen',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi.',
@@ -166,7 +166,7 @@ class User extends BaseController
                 'id_user'   => $id_user,
                 'nama_user' => $this->request->getPost('nama_user'),
                 'level'     => $this->request->getPost('level'),
-                'id_dep'    => $this->request->getPost('id_dep'),
+                'id_bagian'    => $this->request->getPost('id_bagian'),
             ];
 
             // update password kalau diisi

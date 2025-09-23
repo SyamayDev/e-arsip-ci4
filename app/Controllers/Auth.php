@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Model_auth;
-use App\Models\Model_dep;
+use App\Models\Model_bagian;
 use App\Models\Model_user;
 
 class Auth extends BaseController
@@ -13,7 +13,7 @@ class Auth extends BaseController
         helper('form');
         $this->Model_auth = new Model_auth();
         $this->Model_user = new Model_user();
-        $this->Model_dep = new Model_dep();
+        $this->Model_bagian = new Model_bagian();
     }
 
     public function index()
@@ -28,7 +28,7 @@ class Auth extends BaseController
     {
         $data = array(
             'title' => 'Register',
-            'dep' => $this->Model_dep->all_data(),
+            'bagian' => $this->Model_bagian->all_data(),
         );
         return view('v_register', $data);
     }
@@ -66,8 +66,8 @@ class Auth extends BaseController
                     'matches' => '{field} Tidak Sama Dengan Password !!!',
                 ],
             ],
-            'id_dep' => [
-                'label'  => 'Departemen',
+            'id_bagian' => [
+                'label'  => 'bagianartemen',
                 'rules'  => 'required',
                 'errors' => [
                     'required' => '{field} Wajib Diisi !!!',
@@ -79,7 +79,7 @@ class Auth extends BaseController
                 'nama_user' => $this->request->getPost('nama_user'),
                 'email' => $this->request->getPost('email'),
                 'password' => $this->request->getPost('password'),
-                'id_dep' => $this->request->getPost('id_dep'),
+                'id_bagian' => $this->request->getPost('id_bagian'),
                 'level' => 2,
                 'foto' => 'user.jpeg',
             );
@@ -123,7 +123,7 @@ class Auth extends BaseController
                 session()->set('email', $cek['email']);
                 session()->set('level', $cek['level']);
                 session()->set('foto', $cek['foto']);
-                session()->set('id_dep', $cek['id_dep']);
+                session()->set('id_bagian', $cek['id_bagian']);
                 // login berhasil
                 if ($cek['level'] == 1) {
                     return redirect()->to(base_url('home'));
@@ -149,7 +149,7 @@ class Auth extends BaseController
         session()->remove('email');
         session()->remove('level');
         session()->remove('foto');
-        session()->remove('id_dep');
+        session()->remove('id_bagian');
 
         session()->setFlashdata('pesan', 'Anda Telah Logout !!!');
         return redirect()->to(base_url('auth'));

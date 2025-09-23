@@ -28,7 +28,7 @@
             <tr>
                 <th>Departemen</th>
                 <th>:</th>
-                <td><?= $arsip['nama_dep']; ?></td>
+                <td><?= $arsip['nama_bagian']; ?></td>
                 <th>Nama User</th>
                 <th>:</th>
                 <td><?= $arsip['nama_user']; ?></td>

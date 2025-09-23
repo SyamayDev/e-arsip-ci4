@@ -41,8 +41,8 @@
                     <label>Departemen</label>
                     <select name="id_dep" class="form-control">
                         <option value="">--Pilih Departemen--</option>
-                        <?php foreach ($dep as $key => $value) { ?>
-                            <option value="<?= $value['id_dep'] ?>" <?= ($user['id_dep'] == $value['id_dep']) ? 'selected' : '' ?>><?= $value['nama_dep'] ?></option>
+                        <?php foreach ($bagian as $key => $value) { ?>
+                            <option value="<?= $value['id_bagian'] ?>" <?= ($user['id_bagian'] == $value['id_bagian']) ? 'selected' : '' ?>><?= $value['nama_bagian'] ?></option>
                         <?php } ?>
                     </select>
                 </div>

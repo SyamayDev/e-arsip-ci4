@@ -28,7 +28,7 @@
                             <th>Email</th>
                             <th>Password</th>
                             <th>Level</th>
-                            <th>Departemen</th>
+                            <th>Bagian</th>
                             <th>Foto</th>
                             <th width="150px">Aksi</th>
                         </tr>
@@ -48,7 +48,7 @@
                                         User
                                     <?php } ?>
                                 </td>
-                                <td><?= $value['nama_dep']; ?></td>
+                                <td><?= $value['nama_bagian']; ?></td>
                                 <td>
                                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#fotoModal<?= $value['id_user']; ?>" aria-label="Lihat foto <?= $value['nama_user']; ?>">
                                         <img src="<?= base_url('foto/' . $value['foto']); ?>" width="50" height="50" alt="Foto Profil <?= $value['nama_user']; ?>" loading="lazy">
@@ -104,3 +104,9 @@
         <!-- /.box -->
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('#example1').DataTable()
+    })
+</script>

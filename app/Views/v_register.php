@@ -73,7 +73,7 @@
         <select id="id_dep" name="id_dep" class="form-control">
             <option value="">--Pilih Departemen--</option>
             <?php foreach ($dep as $key => $value) { ?>
-                <option value="<?= $value['id_dep'] ?>"><?= $value['nama_dep'] ?></option>
+                <option value="<?= $value['id_bagian'] ?>"><?= $value['nama_bagian'] ?></option>
             <?php } ?>
         </select>
       </div>

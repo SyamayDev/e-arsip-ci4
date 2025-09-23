@@ -9,7 +9,7 @@ class Model_user extends Model
     public function all_data()
     {
         return $this->db->table('tbl_user')
-        ->join('tbl_dep', 'tbl_dep.id_dep = tbl_user.id_dep', 'left')
+        ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_user.id_bagian', 'left')
         ->orderBy('id_user', 'DESC')
         ->get()
         ->getResultArray();
@@ -17,7 +17,7 @@ class Model_user extends Model
     public function detail_data($id_user)
     {
         return $this->db->table('tbl_user')
-            ->join('tbl_dep', 'tbl_dep.id_dep = tbl_user.id_dep', 'left')   
+            ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_user.id_bagian', 'left')   
             ->where('id_user', $id_user)
             ->get()
             ->getRowArray();

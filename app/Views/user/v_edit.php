@@ -39,12 +39,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Departemen</label>
-                    <select class="form-control" name="id_dep">
-                        <option value="<?= $user['id_dep']; ?>" <?= old('id_dep', $user['id_dep']) == $user['id_dep'] ? 'selected' : ''; ?>><?= esc($user['nama_dep']); ?></option>
-                        <?php foreach ($dep as $value): ?>
-                            <?php if ($value['id_dep'] != $user['id_dep']): ?>
-                                <option value="<?= $value['id_dep']; ?>" <?= old('id_dep') == $value['id_dep'] ? 'selected' : ''; ?>><?= esc($value['nama_dep']); ?></option>
+                    <label>bagianartemen</label>
+                    <select class="form-control" name="id_bagian">
+                        <option value="<?= $user['id_bagian']; ?>" <?= old('id_bagian', $user['id_bagian']) == $user['id_bagian'] ? 'selected' : ''; ?>><?= esc($user['nama_bagian']); ?></option>
+                        <?php foreach ($bagian as $value): ?>
+                            <?php if ($value['id_bagian'] != $user['id_bagian']): ?>
+                                <option value="<?= $value['id_bagian']; ?>" <?= old('id_bagian') == $value['id_bagian'] ? 'selected' : ''; ?>><?= esc($value['nama_bagian']); ?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </select>

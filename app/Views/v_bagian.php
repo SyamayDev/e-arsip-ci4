@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Data Departemen</h3>
+                <h3 class="box-title">Data Bagian</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#add"><i class="fa fa-plus" aria-hidden="true"></i> Tambah</button>
@@ -24,19 +24,26 @@
                     <thead>
                         <tr>
                             <th width="50px">No</th>
-                            <th>Departemen</th>
+                            <th>Bagian</th>
                             <th class="text-center" width="150px">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 1;
-                        foreach ($dep as $key => $value) { ?>
+                        foreach ($bagian as $key => $value) { ?>
                             <tr>
                                 <td><?= $no++; ?></td>
-                                <td><?= $value['nama_dep']; ?></td>
+                                <td><?= $value['nama_bagian']; ?></td>
                                 <td>
-                                    <a href="<?= base_url('departemen/edit/' . $value['id_dep']); ?>" class="btn btn-xs btn-info" data-target="#edit<?= $value['id_dep']; ?>" data-toggle="modal" aria-label="Edit Departemen <?= $value['nama_dep']; ?>"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
-                                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete<?= $value['id_dep']; ?>" aria-label="Hapus Departemen <?= $value['nama_dep']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Hapus</button>
+                                    <button type="button"
+                                        class="btn btn-xs btn-info"
+                                        data-toggle="modal"
+                                        data-target="#edit<?= $value['id_bagian']; ?>"
+                                        aria-label="Edit Bagian <?= $value['nama_bagian']; ?>">
+                                        <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                                    </button>
+
+                                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete<?= $value['id_bagian']; ?>" aria-label="Hapus Bagian <?= $value['nama_bagian']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i> Hapus</button>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -49,20 +56,20 @@
     </div>
 </div>
 
-<!-- Modal Add dep -->
-<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addDepartemenLabel">
+<!-- Modal Add bagian -->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addBagianLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addDepartemenLabel">Tambah Departemen</h4>
+                <h4 class="modal-title" id="addBagianLabel">Tambah Bagian</h4>
             </div>
             <div class="modal-body">
-                <?php echo form_open('dep/add') ?>
+                <?php echo form_open('bagian/add') ?>
                 <div class="form-group">
-                    <label for="nama_dep_add">Departemen</label>
-                    <input id="nama_dep_add" class="form-control" name="nama_dep" placeholder="Masukan Nama Departemen">
+                    <label for="nama_bagian_add">Bagian</label>
+                    <input id="nama_bagian_add" class="form-control" name="nama_bagian" placeholder="Masukan Nama Bagian">
                 </div>
 
             </div>
@@ -78,21 +85,21 @@
 </div>
 <!-- end modal add -->
 
-<!-- Modal Edit dep -->
-<?php foreach ($dep as $key => $value) { ?>
-    <div class="modal fade" id="edit<?= $value['id_dep']; ?>" tabindex="-1" role="dialog" aria-labelledby="editDepartemenLabel<?= $value['id_dep']; ?>">
+<!-- Modal Edit bagian -->
+<?php foreach ($bagian as $key => $value) { ?>
+    <div class="modal fade" id="edit<?= $value['id_bagian']; ?>" tabindex="-1" role="dialog" aria-labelledby="editBagianLabel<?= $value['id_bagian']; ?>">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="editDepartemenLabel<?= $value['id_dep']; ?>">Edit Departemen</h4>
+                    <h4 class="modal-title" id="editBagianLabel<?= $value['id_bagian']; ?>">Edit Bagian</h4>
                 </div>
                 <div class="modal-body">
-                    <?php echo form_open('dep/edit/' . $value['id_dep']) ?>
+                    <?php echo form_open('bagian/edit/' . $value['id_bagian']) ?>
                     <div class="form-group">
-                        <label for="nama_dep_edit<?= $value['id_dep']; ?>">Departemen</label>
-                        <input id="nama_dep_edit<?= $value['id_dep']; ?>" class="form-control" name="nama_dep" placeholder="Masukan Nama Departemen" value="<?= $value['nama_dep']; ?>">
+                        <label for="nama_bagian_edit<?= $value['id_bagian']; ?>">Bagian</label>
+                        <input id="nama_bagian_edit<?= $value['id_bagian']; ?>" class="form-control" name="nama_bagian" placeholder="Masukan Nama Bagian" value="<?= $value['nama_bagian']; ?>">
                     </div>
 
                 </div>
@@ -109,22 +116,22 @@
     <!-- end modal edit -->
 <?php } ?>
 
-<!-- Modal Hapus dep -->
-<?php foreach ($dep as $key => $value) { ?>
-    <div class="modal fade" id="delete<?= $value['id_dep']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteDepartemenLabel<?= $value['id_dep']; ?>">
+<!-- Modal Hapus bagian -->
+<?php foreach ($bagian as $key => $value) { ?>
+    <div class="modal fade" id="delete<?= $value['id_bagian']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteBagianLabel<?= $value['id_bagian']; ?>">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="deleteDepartemenLabel<?= $value['id_dep']; ?>"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Konfirmasi Hapus</h4>
+                    <h4 class="modal-title" id="deleteBagianLabel<?= $value['id_bagian']; ?>"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Konfirmasi Hapus</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus departemen <strong><?= $value['nama_dep']; ?></strong>?</p>
+                    <p>Apakah Anda yakin ingin menghapus bagian <strong><?= $value['nama_bagian']; ?></strong>?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                    <a href="<?= base_url('dep/delete/' . $value['id_dep']); ?>" class="btn btn-danger">Hapus</a>
+                    <a href="<?= base_url('bagian/delete/' . $value['id_bagian']); ?>" class="btn btn-danger">Hapus</a>
                 </div>
             </div>
             <!-- /.modal-content -->

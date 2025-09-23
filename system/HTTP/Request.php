@@ -244,7 +244,7 @@ class Request extends Message implements RequestInterface
 				$which = FILTER_FLAG_IPV6;
 				break;
 			default:
-				$which = null;
+				$which = 0;
 				break;
 		}
 
@@ -372,7 +372,7 @@ class Request extends Message implements RequestInterface
 			{
 				$values[$key] = is_array($value)
 					? $this->fetchGlobal($method, $key, $filter, $flags)
-					: filter_var($value, $filter, $flags);
+					: filter_var($value, $filter, $flags ?? 0);
 			}
 
 			return $values;
@@ -424,7 +424,7 @@ class Request extends Message implements RequestInterface
 		{
 			// Iterate over array and append filter and flags
 			array_walk_recursive($value, function (&$val) use ($filter, $flags) {
-				$val = filter_var($val, $filter, $flags);
+				$val = filter_var($val, $filter, $flags ?? 0);
 			});
 
 			return $value;
@@ -436,7 +436,7 @@ class Request extends Message implements RequestInterface
 			return $value;
 		}
 
-		return filter_var($value, $filter, $flags);
+		return filter_var($value, $filter, $flags ?? 0);
 	}
 
 	//--------------------------------------------------------------------

@@ -44,7 +44,7 @@
                     <select class="form-control" name="id_dep">
                         <option value="">Pilih Departemen</option>
                         <?php foreach ($dep as $value): ?>
-                            <option value="<?= $value['id_dep']; ?>" <?= old('id_dep') == $value['id_dep'] ? 'selected' : ''; ?>><?= esc($value['nama_dep']); ?></option>
+                            <option value="<?= $value['id_bagian']; ?>" <?= old('id_bagian') == $value['id_bagian'] ? 'selected' : ''; ?>><?= esc($value['nama_bagian']); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

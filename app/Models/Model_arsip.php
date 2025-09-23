@@ -9,7 +9,7 @@ class Model_arsip extends Model
     public function all_data()
     {
         return $this->db->table('tbl_arsip')
-        ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left')
+        ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_arsip.id_bagian', 'left')
         ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
         ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')
         ->orderBy('id_arsip', 'DESC')
@@ -20,7 +20,7 @@ class Model_arsip extends Model
     public function all_data_user($id_user)
     {
         return $this->db->table('tbl_arsip')
-        ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left')
+        ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_arsip.id_bagian', 'left')
         ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
         ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')
         ->where('tbl_arsip.id_user', $id_user)
@@ -31,7 +31,7 @@ class Model_arsip extends Model
     public function detail_data($id_arsip)
     {
         return $this->db->table('tbl_arsip')
-            ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left') 
+            ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_arsip.id_bagian', 'left') 
             ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
             ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')  
             ->where('id_arsip', $id_arsip)
@@ -57,7 +57,7 @@ class Model_arsip extends Model
     public function getRecentArsip($limit = 5)
 {
     return $this->db->table('tbl_arsip')
-        ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left')
+        ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_arsip.id_bagian', 'left')
         ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
         ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')
         ->orderBy('id_arsip', 'DESC')
@@ -69,7 +69,7 @@ class Model_arsip extends Model
     public function get_arsip_by_month($month)
     {
         return $this->db->table('tbl_arsip')
-            ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left')
+            ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_arsip.id_bagian', 'left')
             ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
             ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')
             ->where('MONTH(tbl_arsip.tgl_upload)', $month)
@@ -78,13 +78,13 @@ class Model_arsip extends Model
             ->getResultArray();
     }
 
-    public function get_arsip_by_department($id_dep)
+    public function get_arsip_by_bagian($id_bagian)
     {
         return $this->db->table('tbl_arsip')
-            ->join('tbl_dep', 'tbl_dep.id_dep = tbl_arsip.id_dep', 'left')
+            ->join('tbl_bagian', 'tbl_bagian.id_bagian = tbl_arsip.id_bagian', 'left')
             ->join('tbl_user', 'tbl_user.id_user = tbl_arsip.id_user', 'left')
             ->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_arsip.id_kategori', 'left')
-            ->where('tbl_arsip.id_dep', $id_dep)
+            ->where('tbl_arsip.id_bagian', $id_bagian)
             ->orderBy('id_arsip', 'DESC')
             ->get()
             ->getResultArray();
