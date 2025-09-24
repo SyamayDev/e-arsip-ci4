@@ -20,9 +20,22 @@ class Auth extends BaseController
     {
         $data = array(
             'title' => 'Login',
+            'isi'   => 'v_login',
         );
-        return view('v_login', $data);
+
+        // kalau belum login → tampilkan halaman login
+        if (! session()->get('log')) {
+            return view('v_login', $data);
+        }
+
+        // kalau sudah login, cek level 
+        if (session()->get('level') == 1) {   // admin
+            return redirect()->to(base_url('home'));
+        } else {   // user
+            return redirect()->to(base_url('arsip'));
+        }
     }
+
 
     public function register()
     {
