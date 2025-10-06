@@ -6,6 +6,7 @@
               <li class="<?php if($title == 'Kategori'){echo 'active';} ?>"><a href="<?= base_url('kategori') ?>">Kategori</a></li>
               <li class="<?php if($title == 'Bagian'){echo 'active';} ?>"><a href="<?= base_url('bagian') ?>">Bagian</a></li>
               <li class="<?php if($title == 'Arsip'){echo 'active';} ?>"><a href="<?= base_url('arsip') ?>">Arsip</a></li>
+              <li class="<?php if($title == 'Kwitansi'){echo 'active';} ?>"><a href="<?= base_url('kwitansi') ?>">Kwitansi</a></li>
               <li class="<?php if($title == 'User'){echo 'active';} ?>"><a href="<?= base_url('user') ?>">User</a></li>
             <?php } else { ?>
               <li class="<?php if($title == 'Arsip'){echo 'active';} ?>"><a href="<?= base_url('arsip') ?>">Arsip</a></li>
