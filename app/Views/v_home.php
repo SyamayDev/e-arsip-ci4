@@ -1,61 +1,62 @@
 <!-- Arsip Terbaru -->
 <div class="row">
-    <div class="col-lg-3 col-xs-12">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <!-- small box -->
-        <div class="small-box bg-red">
+        <div class="small-box" style="background-color:#dd4b39 !important; color:#fff !important; border-radius:6px; overflow:hidden;">
             <div class="inner">
                 <h3><?= $tot_arsip; ?></h3>
                 <p>File Arsip</p>
             </div>
-            <div class="icon">
+            <div class="icon" style="top:10px; right:10px;">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
             </div>
-            <a href="<?= base_url('arsip') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+            <a href="<?= base_url('arsip') ?>" class="small-box-footer" style="color:#fff !important;">View Detail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
-    <div class="col-lg-3 col-xs-12">
-        <!-- small box -->
-        <div class="small-box bg-aqua">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="small-box" style="background-color:#00c0ef !important; color:#fff !important; border-radius:6px; overflow:hidden;">
             <div class="inner">
                 <h3><?= $tot_kategori; ?></h3>
                 <p>Kategori</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+            <div class="icon" style="top:10px; right:10px;">
+                <i class="fa fa-folder-open-o"></i>
             </div>
-            <a href="<?= base_url('kategori') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+            <a href="<?= base_url('kategori') ?>" class="small-box-footer" style="color:#fff !important;">View Detail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
-    <div class="col-lg-3 col-xs-12">
-        <!-- small box -->
-        <div class="small-box bg-green">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="small-box" style="background-color:#00a65a !important; color:#fff !important; border-radius:6px; overflow:hidden;">
             <div class="inner">
                 <h3><?= $tot_user; ?></h3>
                 <p>User</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-users" aria-hidden="true"></i>
+            <div class="icon" style="top:10px; right:10px;">
+                <i class="fa fa-users"></i>
             </div>
-            <a href="<?= base_url('user') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+            <a href="<?= base_url('user') ?>" class="small-box-footer" style="color:#fff !important;">View Detail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
-    <div class="col-lg-3 col-xs-12">
-        <!-- small box -->
-        <div class="small-box bg-yellow">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="small-box" style="background-color:#f39c12 !important; color:#fff !important; border-radius:6px; overflow:hidden;">
             <div class="inner">
                 <h3><?= $tot_bagian; ?></h3>
                 <p>Bagian</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-building-o" aria-hidden="true"></i>
+            <div class="icon" style="top:10px; right:10px;">
+                <i class="fa fa-building-o"></i>
             </div>
-            <a href="<?= base_url('bagian') ?>" class="small-box-footer">View Detail <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+            <a href="<?= base_url('bagian') ?>" class="small-box-footer" style="color:#fff !important;">View Detail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    
+</div>
+
+<!-- Recent Arsip -->
+<div class="row">
+
     <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">
@@ -101,8 +102,8 @@
                 <h3 class="box-title">📊 Arsip per Bulan</h3>
             </div>
             <div class="box-body">
-                <?php 
-                $nama_bulan = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+                <?php
+                $nama_bulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
                 foreach ($arsip_bulan as $ab) :
                     $persen = ($tot_arsip > 0) ? round(($ab['total'] / $tot_arsip) * 100, 1) : 0;
                 ?>

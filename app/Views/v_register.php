@@ -69,10 +69,10 @@
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
       <div class="form-group">
-        <label for="id_dep">Departemen</label>
-        <select id="id_dep" name="id_dep" class="form-control">
-            <option value="">--Pilih Departemen--</option>
-            <?php foreach ($dep as $key => $value) { ?>
+        <label for="id_">Bagian</label>
+        <select id="id_bagian" name="id_bagian" class="form-control">
+            <option value="">--Pilih Bagian--</option>
+            <?php foreach ($bagian as $key => $value) { ?>
                 <option value="<?= $value['id_bagian'] ?>"><?= $value['nama_bagian'] ?></option>
             <?php } ?>
         </select>

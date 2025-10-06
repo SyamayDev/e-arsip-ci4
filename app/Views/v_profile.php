@@ -4,7 +4,7 @@
             <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="<?= base_url('foto/' . $user['foto']) ?>" alt="User profile picture">
                 <h3 class="profile-username text-center"><?= $user['nama_user'] ?></h3>
-                <p class="text-muted text-center"><?= $user['nama_dep'] ?></p>
+                <p class="text-muted text-center"><?= $user['nama_bagian'] ?></p>
             </div>
         </div>
     </div>
@@ -38,14 +38,23 @@
                     <input name="nama_user" class="form-control" value="<?= $user['nama_user'] ?>">
                 </div>
                 <div class="form-group">
-                    <label>Departemen</label>
-                    <select name="id_dep" class="form-control">
-                        <option value="">--Pilih Departemen--</option>
+                    <label>Bagian</label>
+                    <select name="id_bagian" class="form-control"
+                        <?= ($user['level'] != 1) ? 'disabled onfocus="this.blur()"' : '' ?>>
+                        <option value="">--Pilih Bagian--</option>
                         <?php foreach ($bagian as $key => $value) { ?>
-                            <option value="<?= $value['id_bagian'] ?>" <?= ($user['id_bagian'] == $value['id_bagian']) ? 'selected' : '' ?>><?= $value['nama_bagian'] ?></option>
+                            <option value="<?= $value['id_bagian'] ?>"
+                                <?= ($user['id_bagian'] == $value['id_bagian']) ? 'selected' : '' ?>>
+                                <?= $value['nama_bagian'] ?>
+                            </option>
                         <?php } ?>
                     </select>
+                    <?php if ($user['level'] != 1) { ?>
+                        <!-- Trik: tetap kirim value bagian dengan hidden input -->
+                        <input type="hidden" name="id_bagian" value="<?= $user['id_bagian'] ?>">
+                    <?php } ?>
                 </div>
+
                 <div class="form-group">
                     <label>Password Lama</label>
                     <input type="password" name="old_password" class="form-control" placeholder="Kosongkan jika tidak ingin ganti password">

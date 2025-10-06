@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Model_user;
-use App\Models\Model_dep;
+use App\Models\Model_bagian;
 
 class Profile extends BaseController
 {
@@ -11,7 +11,7 @@ class Profile extends BaseController
     {
         helper('form');
         $this->Model_user = new Model_user();
-        $this->Model_dep = new Model_dep();
+        $this->Model_bagian = new Model_bagian();
     }
 
     public function index()
@@ -20,7 +20,7 @@ class Profile extends BaseController
         $data = array(
             'title' => 'Edit Profile',
             'user' => $this->Model_user->detail_data($id_user),
-            'dep' => $this->Model_dep->all_data(),
+            'bagian' => $this->Model_bagian->all_data(),
             'isi' => 'v_profile',
         );
         return view('layout/v_wrapper', $data);
@@ -38,8 +38,8 @@ class Profile extends BaseController
                 'rules'  => 'required',
                 'errors' => ['required' => '{field} Wajib Diisi !!!'],
             ],
-            'id_dep' => [
-                'label'  => 'Departemen',
+            'id_bagian' => [
+                'label'  => 'bagianartemen',
                 'rules'  => 'required',
                 'errors' => ['required' => '{field} Wajib Diisi !!!'],
             ],
@@ -101,7 +101,7 @@ class Profile extends BaseController
         $data = [
             'id_user'   => $id_user,
             'nama_user' => $this->request->getPost('nama_user'),
-            'id_dep'    => $this->request->getPost('id_dep'),
+            'id_bagian'    => $this->request->getPost('id_bagian'),
             'foto'      => $nama_file,
         ];
 
